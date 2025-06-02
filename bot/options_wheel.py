@@ -1,11 +1,10 @@
-def run():
-    print("✅ [OPTIONS] Running options wheel strategy")
-    # TODO: Add live options logic here
+from bot.options_finder import find_best_trades
 
-if __name__ == "__main__":
-    run()
-
-
-def run_wheel_strategy():
-    from bot.options_wheel import main
-    main()
+def main():
+    print("📈 Running real options strategy...")
+    try:
+        results = find_best_trades()
+        print("✅ Top trade candidates:")
+        print(results.head())
+    except Exception as e:
+        print(f"❌ Options strategy error: {e}")

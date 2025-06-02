@@ -1,2 +1,0 @@
-✅ Good trade: {'ticker': 'ABC', 'pnl': 120}
-❌ Bad trade: {'ticker': 'XYZ', 'pnl': -75}

@@ -27,7 +27,7 @@ def rank_options(tickers):
         calls = fetch_weekly_options(t)
         if calls is not None and not calls.empty:
             df = calls[(calls["volume"] > 50) & (calls["openInterest"] > 100)]
-            df["yield"] = df["lastPrice"] / df["strike"]
+            df.loc[:, "yield"] = df["lastPrice"] / df["strike"]
             top = df.sort_values(by="yield", ascending=False).head(3)
             results.append((t, top[["strike", "lastPrice", "volume", "openInterest", "yield"]]))
     return results

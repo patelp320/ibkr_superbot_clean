@@ -1,7 +1,0 @@
-{
-  "trades": [
-    {"ticker": "ABC", "pnl": 120},
-    {"ticker": "XYZ", "pnl": -75},
-    {"ticker": "DEF", "pnl": 30}
-  ]
-}

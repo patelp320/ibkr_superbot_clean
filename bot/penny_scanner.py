@@ -32,3 +32,8 @@ def aggregate():
 if __name__ == "__main__":
     aggregate()
     send_penny_report()
+
+# ✅ Added by setup script to enable core.py entry
+def main():
+    print("Running penny scanner main()")
+    aggregate()

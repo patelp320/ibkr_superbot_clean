@@ -1,4 +1,19 @@
 services:
+  watchdog:
+
+    build:
+
+      context: .
+
+    command: python3 bot/watchdog.py
+
+    volumes:
+
+      - .:/app
+
+      - /var/run/docker.sock:/usr/bin/docker
+
+    restart: always
   trader:
     build: .
     volumes:
