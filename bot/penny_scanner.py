@@ -1,9 +1,9 @@
-from bot.emailer import send_penny_report
+# from bot.emailer import send_penny_report
 import requests, re
 from bot.sentiment_filter import get_sentiment
 from bs4 import BeautifulSoup
 from pathlib import Path
-from .emailer import send_penny_report
+# from .emailer import send_penny_report
 
 YAHOO_URL = "https://finance.yahoo.com/trending-tickers"
 FINVIZ_URL = "https://finviz.com/screener.ashx?v=111&s=ta_topgainers&f=sh_price_u10,sh_avgvol_o1000"

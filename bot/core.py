@@ -1,6 +1,7 @@
 from bot.penny_scanner import main as run_penny_scanner
 from bot.options_wheel import main as run_options_wheel
-from bot.reporter import connect, send_email, generate_profit_report
+from bot.emailer import connect, send_email
+from bot.reporter import generate_profit_report
 from datetime import datetime
 import time
 import pandas as pd
@@ -20,6 +21,8 @@ while True:
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] [REPORT] Generating profit report...")
         results_df = pd.DataFrame(results)
         generate_profit_report(results_df)
+        connect()
+        send_email("profit_report.txt")
     except Exception as e:
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] [REPORT] Error generating profit report: {e}")
 

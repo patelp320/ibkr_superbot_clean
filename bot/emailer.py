@@ -1,37 +1,36 @@
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from .config import SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, EMAIL_TO
-from .options_finder import rank_options
+from email.message import EmailMessage
 
-def build_options_text():
-    tickers = ["AAPL", "TSLA", "NVDA", "AMD", "SPY"]
-    ranked = rank_options(tickers)
-    text = ""
-    for symbol, df in ranked:
-        text += f"\n📈 {symbol} Weekly Options:\n"
-        text += df.to_string(index=False)
-        text += "\n"
-    return text
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_USER = "patelp320@gmail.com"
+SMTP_PASS = "jvwvjyqqiuwqcvxn"
+EMAIL_TO  = "patelp320@gmail.com"
 
-def send_email(subject, body):
-    msg = MIMEMultipart()
-    msg["From"] = SMTP_USER
-    msg["To"] = EMAIL_TO
-    msg["Subject"] = subject
+server = None
 
-    msg.attach(MIMEText(body, "plain"))
-
+def connect():
+    global server
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASS)
-            server.sendmail(SMTP_USER, EMAIL_TO, msg.as_string())
-        print("✅ Email sent successfully.")
+        server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASS)
+        print("📡 Connected to Gmail SMTP server.")
     except Exception as e:
-        print(f"❌ Email failed: {e}")
+        print(f"❌ SMTP connection failed: {e}")
 
-def send_penny_report():
-    with open("local_cache/tickers_weekly.txt") as f:
-        tickers = f.read()
-    send_email("📈 Weekly Penny Stock Report", tickers)
+def send_email(report_path="profit_report.txt"):
+    try:
+        with open(report_path, "r") as f:
+            content = f.read()
+
+        msg = EmailMessage()
+        msg.set_content(content)
+        msg["Subject"] = "📈 IBKR Superbot Report"
+        msg["From"] = SMTP_USER
+        msg["To"] = EMAIL_TO
+
+        server.send_message(msg)
+        print(f"📤 Email sent to {EMAIL_TO}")
+    except Exception as e:
+        print(f"❌ Failed to send email: {e}")
