@@ -1,0 +1,17 @@
+ib_insync
+pandas
+numpy
+scipy
+scikit-learn
+ta
+schedule
+tenacity
+python-dotenv
+beautifulsoup4
+requests
+aiohttp
+yfinance
+tqdm
+feedparser
+nltk
+textblob
